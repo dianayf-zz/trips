@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  trips:
+    build: .
+    ports:
+      - '4000:4000'
+    restart: on-failure
+    env_file: .env
+    depends_on:
+      - mongodb
+    volumes:
+      - ".:/usr/src/myapp"
+
+  mongodb:
+    image: mongo:latest
+    restart: on-failure
+    env_file: .env
+    volumes:
+      - ./data:/data/db
+    ports:
+      - '27017:27017'
+
+
